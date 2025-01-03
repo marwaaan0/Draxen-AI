@@ -15,7 +15,7 @@
     "build:server": "cd server && npm run build",
     "start:server": "cd server && npm start",
     "start:client": "cd client && npm run preview",
-    "start": "npm run start:server"
+    "start": "cd server && node dist/server.js"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
