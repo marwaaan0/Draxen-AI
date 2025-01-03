@@ -8,3 +8,12 @@ services:
       - key: NODE_ENV
         value: production
     healthCheckPath: /
+
+  - type: web
+    name: draxen-ai-client
+    env: static
+    buildCommand: cd client && npm install && npm run build
+    staticPublishPath: ./client/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://draxen-ai-server.onrender.com
