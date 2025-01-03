@@ -1,28 +1,25 @@
-interface ImportMetaEnv {
-  readonly VITE_API_URL: string
-  readonly VITE_ENABLE_AUTH: string
-  readonly VITE_ENABLE_ANALYTICS: string
-  readonly VITE_APP_NAME: string
-  readonly VITE_APP_VERSION: string
-  readonly VITE_APP_ENVIRONMENT: string
-}
+/// <reference types="vite/client" />
 
-interface ImportMeta {
-  readonly env: ImportMetaEnv
+const getEnvVar = (key: keyof ImportMetaEnv, fallback?: string): string => {
+  const value = import.meta.env[key] || fallback
+  if (value === undefined) {
+    throw new Error(`Environment variable ${key} is not defined`)
+  }
+  return value
 }
 
 export const config = {
-  apiUrl: import.meta.env.VITE_API_URL,
+  apiUrl: getEnvVar('VITE_API_URL', 'http://localhost:3000'),
   features: {
-    enableAuth: import.meta.env.VITE_ENABLE_AUTH === 'true',
-    enableAnalytics: import.meta.env.VITE_ENABLE_ANALYTICS === 'true',
+    enableAuth: getEnvVar('VITE_ENABLE_AUTH', 'false') === 'true',
+    enableAnalytics: getEnvVar('VITE_ENABLE_ANALYTICS', 'false') === 'true',
   },
   app: {
-    name: import.meta.env.VITE_APP_NAME,
-    version: import.meta.env.VITE_APP_VERSION,
-    environment: import.meta.env.VITE_APP_ENVIRONMENT as 'development' | 'production' | 'test',
-    isDevelopment: import.meta.env.VITE_APP_ENVIRONMENT === 'development',
-    isProduction: import.meta.env.VITE_APP_ENVIRONMENT === 'production',
-    isTest: import.meta.env.VITE_APP_ENVIRONMENT === 'test',
+    name: getEnvVar('VITE_APP_NAME', 'Draxen AI'),
+    version: getEnvVar('VITE_APP_VERSION', '1.0.0'),
+    environment: getEnvVar('VITE_APP_ENVIRONMENT', 'development') as 'development' | 'production' | 'test',
+    isDevelopment: getEnvVar('VITE_APP_ENVIRONMENT', 'development') === 'development',
+    isProduction: getEnvVar('VITE_APP_ENVIRONMENT', 'development') === 'production',
+    isTest: getEnvVar('VITE_APP_ENVIRONMENT', 'development') === 'test',
   },
 } as const;
