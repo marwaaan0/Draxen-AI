@@ -4,7 +4,8 @@ services:
     env: node
     region: frankfurt
     plan: free
-    buildCommand: npm install && npm run build:server
+    rootDirectory: server
+    buildCommand: npm install && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
@@ -18,8 +19,9 @@ services:
     env: static
     region: frankfurt
     plan: free
-    buildCommand: npm install && npm run build:client
-    staticPublishPath: ./client/dist
+    rootDirectory: client
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
     routes:
       - type: rewrite
         source: /*
