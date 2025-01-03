@@ -17,3 +17,13 @@ services:
     envVars:
       - key: VITE_API_URL
         value: https://draxen-ai-server.onrender.com
+      - key: VITE_APP_NAME
+        value: Draxen AI
+      - key: VITE_APP_VERSION
+        value: 1.0.0
+      - key: VITE_APP_ENVIRONMENT
+        value: production
+      - key: VITE_ENABLE_AUTH
+        value: true
+      - key: VITE_ENABLE_ANALYTICS
+        value: true
