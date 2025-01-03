@@ -2,18 +2,28 @@ services:
   - type: web
     name: draxen-ai-server
     env: node
-    buildCommand: npm install && npm run build
+    region: frankfurt
+    plan: free
+    buildCommand: npm install && npm run build:server
     startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 3000
     healthCheckPath: /
 
   - type: web
     name: draxen-ai-client
     env: static
-    buildCommand: cd client && npm install && npm run build
+    region: frankfurt
+    plan: free
+    buildCommand: npm install && npm run build:client
     staticPublishPath: ./client/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
     envVars:
       - key: VITE_API_URL
         value: https://draxen-ai-server.onrender.com
@@ -24,6 +34,6 @@ services:
       - key: VITE_APP_ENVIRONMENT
         value: production
       - key: VITE_ENABLE_AUTH
-        value: true
+        value: "true"
       - key: VITE_ENABLE_ANALYTICS
-        value: true
+        value: "true"
