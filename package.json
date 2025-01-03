@@ -1,0 +1,15 @@
+{
+  "name": "draxen-ai",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "server"
+  ],
+  "scripts": {
+    "build": "cd server && npm install && npm run build",
+    "start": "cd server && npm start"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
